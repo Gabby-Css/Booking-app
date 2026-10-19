@@ -1,0 +1,19 @@
+{
+  "name": "booking-app",
+  "version": "1.0.0",
+  "description": "Pick an available time slot, confirm it, and never get double-booked.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "better-sqlite3": "^13.0.3",
+    "dotenv": "^18.0.8",
+    "express": "^5.3.0"
+  }
+}

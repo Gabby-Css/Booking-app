@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Book a slot - Appointment Scheduler</title>
+  <meta name="description" content="Pick a day, choose a free time slot and confirm your appointment in seconds.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%230369a1'/%3E%3Crect x='22' y='28' width='56' height='50' rx='8' fill='white'/%3E%3Crect x='22' y='28' width='56' height='14' rx='6' fill='%2338bdf8'/%3E%3Cpath d='M38 60l8 8 16-18' fill='none' stroke='%230369a1' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">📅</span> <span id="business-name">Book a slot</span></div>
+    <span class="tz muted" id="tz-note"></span>
+  </header>
+
+  <main class="container">
+    <section class="intro">
+      <h1>Pick a time that <span class="grad">works for you.</span></h1>
+      <p class="muted" id="intro-text">Choose a day, tap a free slot and confirm. You'll get a booking code you can use to cancel.</p>
+    </section>
+
+    <div class="layout">
+      <div class="left">
+        <section class="panel">
+          <h2><span class="step">1</span> Choose a day</h2>
+          <div id="days" class="days" role="listbox" aria-label="Available days"></div>
+        </section>
+
+        <section class="panel">
+          <h2><span class="step">2</span> Pick a time <small id="slots-title" class="muted"></small></h2>
+          <div id="slots" class="slots"></div>
+          <p class="legend muted"><i class="dot free"></i> Free <i class="dot taken"></i> Taken or passed</p>
+        </section>
+      </div>
+
+      <aside class="right">
+        <form id="booking-form" class="panel sticky" novalidate>
+          <h2><span class="step">3</span> Your details</h2>
+          <div id="summary" class="summary empty">Pick a day and a time to get started.</div>
+
+          <label class="field"><span>Full name</span>
+            <input name="name" maxlength="60" autocomplete="name" placeholder="Ama Mensah" required>
+          </label>
+          <label class="field"><span>Email</span>
+            <input name="email" type="email" maxlength="120" autocomplete="email" placeholder="you@example.com" required>
+          </label>
+          <label class="field"><span>Anything we should know? <em class="muted">(optional)</em></span>
+            <textarea name="notes" rows="3" maxlength="300" placeholder="e.g. I'd like to talk about my project"></textarea>
+          </label>
+
+          <p class="form-error" id="form-error" role="alert" hidden></p>
+          <button class="btn primary block" type="submit" id="confirm-btn" disabled>Confirm booking</button>
+        </form>
+      </aside>
+    </div>
+
+    <section class="panel" id="mine" hidden>
+      <h2>Your bookings on this device</h2>
+      <ul id="mine-list" class="mine-list"></ul>
+    </section>
+
+    <section class="panel lookup">
+      <h2>Have a booking code?</h2>
+      <form id="lookup-form" class="inline-form">
+        <input name="code" maxlength="10" placeholder="e.g. 9F3A07C1B2" aria-label="Booking code" autocomplete="off">
+        <button class="btn ghost" type="submit">Find my booking</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Shown after a successful booking -->
+  <dialog id="done-dialog">
+    <div class="done">
+      <div class="check-big">✓</div>
+      <h2>You're booked!</h2>
+      <p id="done-when" class="done-when"></p>
+      <p class="muted">Save this code. You'll need it to cancel or look up your booking.</p>
+      <div class="code" id="done-code"></div>
+      <div class="done-actions">
+        <button class="btn ghost" id="ics-btn">📆 Add to calendar</button>
+        <button class="btn primary" id="done-close">Done</button>
+      </div>
+    </div>
+  </dialog>
+
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
